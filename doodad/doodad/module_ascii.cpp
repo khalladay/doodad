@@ -3,7 +3,10 @@
 
 bool ModuleAscii::CanHandleInput(std::string input) const 
 {
-	std::vector<std::string> tokens = TokenizeString(input, "\'");
+	std::vector<std::string> delims;
+	delims.push_back("\'");
+
+	std::vector<std::string> tokens = TokenizeString(input, delims);
 	
 	if (tokens.size() != 3)
 	{
@@ -20,7 +23,11 @@ bool ModuleAscii::CanHandleInput(std::string input) const
 
 std::string ModuleAscii::HandleInput(std::string input) const
 {
-	std::vector<std::string> tokens = TokenizeString(input, "\'");
+	std::vector<std::string> delims;
+	delims.push_back("\'");
+
+	std::vector<std::string> tokens = TokenizeString(input, delims);
+
 
 	std::string t = tokens[1];
 	

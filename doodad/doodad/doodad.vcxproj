@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="doodad_app.cpp" />
     <ClCompile Include="doodad_controller.cpp" />
+    <ClCompile Include="doodad_module.cpp" />
     <ClCompile Include="doodad_view.cpp" />
     <ClCompile Include="dx11_render_backend.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -33,9 +34,10 @@
     <ClCompile Include="logging.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="module_ascii.cpp" />
-    <ClCompile Include="module_bitwise.cpp" />
+    <ClCompile Include="module_integer_calculator.cpp" />
     <ClCompile Include="module_calculator.cpp" />
     <ClCompile Include="module_comment.cpp" />
+    <ClCompile Include="module_debug.cpp" />
     <ClCompile Include="module_radix.cpp" />
     <ClCompile Include="win_init.cpp" />
     <ClCompile Include="input_handler.cpp" />
@@ -60,9 +62,10 @@
     <ClInclude Include="imgui\text_editor.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="module_ascii.h" />
-    <ClInclude Include="module_bitwise.h" />
+    <ClInclude Include="module_integer_calculator.h" />
     <ClInclude Include="module_calculator.h" />
     <ClInclude Include="module_comment.h" />
+    <ClInclude Include="module_debug.h" />
     <ClInclude Include="module_radix.h" />
     <ClInclude Include="win_init.h" />
     <ClInclude Include="input_handler.h" />

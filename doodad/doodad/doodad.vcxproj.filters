@@ -69,7 +69,7 @@
     <ClCompile Include="module_ascii.cpp">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="module_bitwise.cpp">
+    <ClCompile Include="module_integer_calculator.cpp">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
     <ClCompile Include="module_calculator.cpp">
@@ -79,6 +79,15 @@
       <Filter>Source Files\modules</Filter>
     </ClCompile>
     <ClCompile Include="module_radix.cpp">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="module_debug.cpp">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="doodad_module.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="module_vector.cpp">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,7 +155,7 @@
     <ClInclude Include="module_calculator.h">
       <Filter>Source Files\modules</Filter>
     </ClInclude>
-    <ClInclude Include="module_bitwise.h">
+    <ClInclude Include="module_integer_calculator.h">
       <Filter>Source Files\modules</Filter>
     </ClInclude>
     <ClInclude Include="module_radix.h">
@@ -156,6 +165,12 @@
       <Filter>Source Files\modules</Filter>
     </ClInclude>
     <ClInclude Include="module_comment.h">
+      <Filter>Source Files\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="module_debug.h">
+      <Filter>Source Files\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="module_vector.h">
       <Filter>Source Files\modules</Filter>
     </ClInclude>
   </ItemGroup>

@@ -32,10 +32,12 @@ public:
 	void SetDelegate(DoodadViewDelegate* Delegate);
 
 	~DoodadView();
+	int ConsoleHistoryCallback(ImGuiInputTextCallbackData* data);
 
 private:
 	void DrawOutputWindow();
 	void DrawInputBar();
+	void CopyLastOutputToClipboard();
 
 	EViewState mViewState = EViewState::StartupMessage;
 
@@ -47,6 +49,8 @@ private:
 	std::vector<std::string> mStartupMessage;
 	std::vector<std::string> mHelpMessage;
 	std::vector<std::string> mHistory;
+	std::vector<std::string> mInputHistory;
+	int32_t mInputHistoryIdx = -1;
 
 	DoodadViewDelegate* mDelegate = nullptr;
 

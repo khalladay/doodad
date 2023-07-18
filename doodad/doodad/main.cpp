@@ -6,82 +6,11 @@
 #include <shlwapi.h>
 #pragma comment (lib, "Shlwapi.lib")
 
-
 /*
-calculator - ((2^10)*2) / 400000
-bitwise calculator - ((194 & 930) | 0xFF) ^ 
-radix conversion - 16 0xF 0b1111
-ascii values - 'C'
-
-dot product of two vectors (1,2,3) . (2,3,4)
-normalize a vector normalize(1,2,3)
-length of a vector length(1,2,3)
-
-should spawn the window wherever your cursor is on screen. 
+should spawn the window wherever your cursor is on screen when summoned via hook
+need actual help menu
+color output bg to have slightly different bg color for different outputs 
 */
-
-/*
-std::vector<std::string> split(const std::string& source, const std::string& delimiters) 
-{
-    uint32_t iter = 0;
-
-    std::vector<char> delims;
-    for (uint32_t i = 0; i < delimiters.length(); ++i)
-    {
-        delims.push_back( delimiters[i] );
-    }
-
-    std::vector<char> whitespace;
-    whitespace.push_back(' ');
-    whitespace.push_back('\n');
-    whitespace.push_back('\r\n');
-    whitespace.push_back('\t');
-
-    auto IsDelimeter = [](char c, std::vector<char> delimVec) -> bool
-    {
-        return std::find(delimVec.begin(), delimVec.end(), c) != delimVec.end();
-    };
-
-    auto IsWhitespace = [whitespace](char c) -> bool
-    {
-        return std::find(whitespace.begin(), whitespace.end(), c) != whitespace.end();
-    };
-
-    std::vector<std::string> tokens;
-    std::string word;
-
-    while (iter < source.length())
-    {
-        char c = source[iter];
-        if (IsDelimeter(c, delims))
-        {
-            if (word.length() > 0) tokens.push_back(word);
-            word = c;
-            tokens.push_back(word);
-            word = "";
-        }
-        else if (!IsWhitespace(c))
-        {
-            word.push_back(c);
-        }
-        iter++;
-    }
-    tokens.push_back(word);
-
-    return tokens;
-}
-
-std::string ProcessString(std::string str)
-{
-    std::vector<std::string> tokens = split(str, "+-()/^*");
-    std::string output;
-    for (std::string s : tokens) { output += s; output += "\n"; }
-    return output;
-}
-
-*/
-
-
 
 void mainLoop();
 

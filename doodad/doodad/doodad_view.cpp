@@ -106,14 +106,90 @@ void DoodadView::DrawOutputWindow()
 
 }
 
+int DoodadView::ConsoleHistoryCallback(ImGuiInputTextCallbackData* data)
+{
+	switch (data->EventFlag)
+	{
+	case ImGuiInputTextFlags_CallbackHistory:
+	{
+		// Example of HISTORY
+		const int prevHistoryIdx = mInputHistoryIdx;
+		if (ImGui::IsKeyPressed(EKeyCode::KEY_UP))
+		{
+			mInputHistoryIdx = min(mInputHistory.size() - 1, mInputHistoryIdx + 1);
+		}
+		else if (ImGui::IsKeyPressed(EKeyCode::KEY_DOWN))
+		{
+			mInputHistoryIdx = max(-1, mInputHistoryIdx - 1);
+		}
+		// A better implementation would preserve the data on the current input line along with cursor position.
+		if (prevHistoryIdx != mInputHistoryIdx)
+		{
+			const char* history_str = (mInputHistoryIdx >= 0) ? mInputHistory[mInputHistory.size() -1 - mInputHistoryIdx].c_str() : "";
+			data->DeleteChars(0, strlen(mInputBuffer));
+			data->InsertChars(0, history_str);
+		}
+	}
+	}
+	return 0;
+}
+
+void DoodadView::CopyLastOutputToClipboard()
+{
+	if (mHistory.size() == 0) return;
+
+	if (!OpenClipboard(App().appWindowHandle))
+	{
+		return;
+	}	
+
+	EmptyClipboard();
+
+	std::string lastOutput = mHistory[mHistory.size() - 1];
+	
+	//allocate global memory to store clipboard contents
+	HGLOBAL globalMem = GlobalAlloc(GMEM_FIXED, (lastOutput.size() + 1) * sizeof(TCHAR));
+
+	if (globalMem == NULL)
+	{
+		CloseClipboard();
+		return;
+	}
+
+	memcpy(globalMem, lastOutput.c_str(), lastOutput.size());
+
+
+	SetClipboardData(CF_TEXT, globalMem);
+	CloseClipboard();
+}
+
+
 void DoodadView::DrawInputBar()
 {
 	// Only reclaim after enter key is pressed!
 	bool reclaimFocus = false;
+	
+	//hacky way to get an imgui input text callback to route to this object's cb func.
+	//since lambda's can only be function ptrs if they don't capture
+	static DoodadView* StaticViewPointer = this;
+
+	if (ImGui::IsKeyPressed(EKeyCode::KEY_BACKSPACE))
+	{
+		mInputHistoryIdx = -1;
+	}
+
+	if (ImGui::IsKeyPressed(EKeyCode::KEY_TAB))
+	{
+		CopyLastOutputToClipboard();
+	}
 
 	// Input widget. (Width an always fixed width)
 	ImGui::PushItemWidth(-1);
-	if (ImGui::InputText("##Input", mInputBuffer, sizeof(mInputBuffer), ImGuiInputTextFlags_EnterReturnsTrue))
+	if (ImGui::InputText("##Input",
+		mInputBuffer,
+		sizeof(mInputBuffer),
+		ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackHistory,
+		[](ImGuiInputTextCallbackData* data) {return StaticViewPointer->ConsoleHistoryCallback(data); }))
 	{
 		reclaimFocus = true;
 		if (strlen(mInputBuffer) > 0)
@@ -133,13 +209,17 @@ void DoodadView::DrawInputBar()
 				
 				if (mDelegate)
 				{
+					mInputHistory.push_back(mInputBuffer);
 					std::string output = mDelegate->Eval(mInputBuffer);
 					mHistory.push_back(output);
+					mInputHistoryIdx = -1;
+
 				}
 
 				mWantsScroll = true;
 			}
 		}
+		mInputHistoryIdx = -1;
 
 		memset(mInputBuffer, 0, sizeof(mInputBuffer));
 	}
